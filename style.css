@@ -1,0 +1,120 @@
+/* Animasi Background */
+body {
+    background: linear-gradient(-45deg, #1e3c72, #2a5298, #243b55, #485563);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Gaya Navbar */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7); /* Warna latar navbar semi-transparan */
+    border-bottom: 2px solid #555;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #000000 !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: #0a0a0a !important;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+}
+
+.nav-link:hover {
+    color: #000dff !important; /* Warna hover untuk kontras */
+    text-decoration: none;
+}
+
+/* Gaya Teks Utama */
+h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+}
+
+p {
+    color: #dddddd;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Gaya Tabel */
+.table {
+    color: #333;
+    background-color: #000000;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.table th {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.table tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+.table td, .table th {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Tombol Aksi */
+.btn-primary {
+    background-color: #5a67d8;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #4c51bf;
+}
+
+.btn-danger {
+    background-color: #e53e3e;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
+
+/* Modal */
+.modal-content {
+    background-color: #f7fafc;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-footer {
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Gaya Form */
+.form-group label {
+    color: #333;
+}
+
+.form-control {
+    border-radius: 4px;
+    padding: 10px;
+}

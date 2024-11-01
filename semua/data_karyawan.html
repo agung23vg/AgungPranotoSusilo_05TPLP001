@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Karyawan</title>
+    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">DATA KARYAWAN</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Home</a> <!-- Link ke halaman Home -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tambah_karyawan.html">Tambah Karyawan</a> <!-- Link ke halaman Home -->
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Data Karyawan</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Jabatan</th>
+                <th>Divisi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="tabelDataKaryawan">
+            <!-- Data karyawan akan ditampilkan di sini -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Edit Karyawan -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Data Karyawan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditKaryawan">
+                    <div class="form-group">
+                        <label for="editId">ID Karyawan:</label>
+                        <input type="text" class="form-control" id="editId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNama">Nama Karyawan:</label>
+                        <input type="text" class="form-control" id="editNama">
+                    </div>
+                    <div class="form-group">
+                        <label for="editJabatan">Jabatan:</label>
+                        <input type="text" class="form-control" id="editJabatan">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDivisi">Divisi:</label>
+                        <input type="text" class="form-control" id="editDivisi">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="simpanPerubahan()">Simpan Perubahan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let dataKaryawan = JSON.parse(localStorage.getItem("dataKaryawan")) || [];
+    let editIndex = null;
+
+    function tampilkanDataKaryawan() {
+        let tabelDataKaryawan = document.getElementById("tabelDataKaryawan");
+        tabelDataKaryawan.innerHTML = "";
+
+        dataKaryawan.forEach(function(karyawan, index) {
+            let row = tabelDataKaryawan.insertRow();
+            row.innerHTML = `
+                <td>${karyawan.id}</td>
+                <td>${karyawan.nama}</td>
+                <td>${karyawan.jabatan}</td>
+                <td>${karyawan.divisi}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" onclick="editKaryawan(${index})">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="hapusKaryawan(${index})">Hapus</button>
+                </td>
+            `;
+        });
+    }
+
+    function editKaryawan(index) {
+        editIndex = index;
+        let karyawan = dataKaryawan[index];
+
+        document.getElementById("editId").value = karyawan.id;
+        document.getElementById("editNama").value = karyawan.nama;
+        document.getElementById("editJabatan").value = karyawan.jabatan;
+        document.getElementById("editDivisi").value = karyawan.divisi;
+
+        $('#editModal').modal('show');
+    }
+
+    function simpanPerubahan() {
+        // Ambil data yang telah diedit
+        dataKaryawan[editIndex].nama = document.getElementById("editNama").value;
+        dataKaryawan[editIndex].jabatan = document.getElementById("editJabatan").value;
+        dataKaryawan[editIndex].divisi = document.getElementById("editDivisi").value;
+
+        // Debug: Cek perubahan data sebelum disimpan
+        console.log("Data Karyawan yang disimpan:", dataKaryawan);
+
+        // Simpan perubahan ke localStorage
+        localStorage.setItem("dataKaryawan", JSON.stringify(dataKaryawan));
+
+        // Tutup modal
+        $('#editModal').modal('hide');
+
+        // Perbarui tabel dengan data terbaru
+        tampilkanDataKaryawan();
+    }
+
+    function hapusKaryawan(index) {
+        dataKaryawan.splice(index, 1); // Hapus dari array
+        localStorage.setItem("dataKaryawan", JSON.stringify(dataKaryawan)); // Update localStorage
+        tampilkanDataKaryawan(); // Refresh tampilan tabel
+    }
+
+    // Panggil fungsi untuk menampilkan data karyawan di tabel saat halaman dimuat
+    tampilkanDataKaryawan();
+</script>
+
+</body>
+</html>

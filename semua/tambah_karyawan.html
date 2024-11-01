@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah</title>
+    <link href="tambah.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Tambah Data Karyawan</h2>
+        <form id="formTambahKaryawan">
+            <div class="form-group">
+                <label for="id">ID Karyawan:</label>
+                <input type="text" class="form-control" id="id" placeholder="Masukkan ID Karyawan">
+            </div>
+            <div class="form-group">
+                <label for="nama">Nama Karyawan:</label>
+                <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
+            </div>
+            <div class="form-group">
+                <label for="jabatan">Jabatan:</label>
+                <input type="text" class="form-control" id="jabatan" placeholder="Masukkan Jabatan">
+            </div>
+            <div class="form-group">
+                <label for="divisi">Divisi:</label>
+                <input type="text" class="form-control" id="divisi" placeholder="Masukkan Divisi">
+            </div>
+            <button type="submit" class="btn btn-success">Simpan</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("formTambahKaryawan").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Ambil data dari form
+            let id = document.getElementById("id").value;
+            let nama = document.getElementById("nama").value;
+            let jabatan = document.getElementById("jabatan").value;
+            let divisi = document.getElementById("divisi").value;
+            
+            // Ambil data karyawan dari localStorage atau buat array baru jika belum ada
+            let dataKaryawan = JSON.parse(localStorage.getItem("dataKaryawan")) || [];
+            
+            // Tambah data baru ke array
+            dataKaryawan.push({ id, nama, jabatan, divisi });
+            
+            // Simpan kembali ke localStorage
+            localStorage.setItem("dataKaryawan", JSON.stringify(dataKaryawan));
+            
+            // Redirect ke halaman Data Karyawan
+            window.location.href = "data_karyawan.html";
+        });
+    </script>
+    
+</body>
+</html>
